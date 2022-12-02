@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\TodoController;
 use App\Http\Controllers\KontakController;
 use Illuminate\Http\Request;
@@ -28,3 +29,9 @@ Route::resource('kontak', KontakController::class);
 Route::post('login', [AuthController::class, 'login']);
 Route::put('todos/{todo}/status', [TodoController::class, 'status']);
 Route::resource('todos', TodoController::class);
+
+Route::group([
+    'middleware' => 'auth:sanctum'
+], function() {
+    Route::resource('orders', OrderController::class);
+});
